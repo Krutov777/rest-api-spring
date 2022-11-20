@@ -1,0 +1,131 @@
+### Регистрация
+POST localhost/api/signUp
+Content-Type: application/json
+
+{
+  "firstName": "Александр",
+  "lastName": "Крутов",
+  "email": "madrid211514@gmail.com",
+  "password": "qwerty007",
+  "repeatPassword": "qwerty007",
+  "role": "ADMIN"
+}
+
+###
+POST localhost/api/signUp
+Content-Type: application/json
+
+{
+  "firstName": "Мэттью",
+  "lastName": "Макконахи",
+  "email": "mattew@gmail.com",
+  "password": "qwerty007",
+  "repeatPassword": "qwerty007",
+  "role": "USER"
+}
+
+
+### Получение токена ADMIN
+POST localhost/auth/token
+Content-Type: application/x-www-form-urlencoded
+
+email=madrid211514@gmail.com&password=qwerty007
+
+### Получение токена USER
+POST localhost/auth/token
+Content-Type: application/x-www-form-urlencoded
+
+email=mattew@gmail.com&password=qwerty007
+
+
+### Получение списка авторов (ADMIN) (access token)
+
+GET localhost/api/authors?page=3
+Authorization: Bearer TOKEN_ADMIN_HERE
+
+
+### Получение списка авторов (проверка прав доступа USER)
+
+GET localhost/api/authors?page=3
+Authorization: Bearer TOKEN_USER_HERE
+
+
+### Добавление автора (ADMIN)
+
+POST localhost/api/authors
+Authorization: Bearer TOKEN_ADMIN_HERE
+Content-Type: application/json
+
+{
+  "firstName": "alexander",
+  "lastName": ""
+}
+
+### Обновление автора (ADMIN)
+
+PUT localhost/api/authors/1
+Authorization: Bearer TOKEN_ADMIN_HERE
+Content-Type: application/json
+
+{
+  "firstName": "Александр",
+  "lastName": "Пушкин"
+}
+
+
+### Добавление поста 1 (USER)
+
+POST localhost/api/posts
+Authorization: Bearer TOKEN_USER_HERE
+Content-Type: application/json
+
+{
+  "title": "Новый пост",
+  "text": "Очень новый пост",
+  "authorId": 1
+}
+
+### Добавление поста 2 (ADMIN)
+
+POST localhost/api/posts
+Authorization: Bearer TOKEN_ADMIN_HERE
+Content-Type: application/json
+
+{
+  "title": "Старый пост",
+  "text": "Очень старый пост",
+  "authorId": 1
+}
+
+### Добавление поста 3 (USER)
+
+POST localhost/api/posts
+Authorization: Bearer TOKEN_USER_HERE
+Content-Type: application/json
+
+{
+  "title": "Не такой старый пост",
+  "text": "Очень не старый пост",
+  "authorId": 1
+}
+
+### Получение поста по его идентификатору
+
+GET localhost/api/posts/3
+Authorization: Bearer TOKEN_USER_HERE
+
+
+### Добавление поста в избанное
+
+POST localhost/api/authors/1/favorites
+Authorization: Bearer TOKEN_ADMIN_HERE
+Content-Type: application/json
+
+{
+  "postId": 3
+}
+
+### Удаление поста из избранного
+
+DELETE localhost/api/authors/1/favorites/1
+Authorization: Bearer TOKEN_ADMIN_HERE
